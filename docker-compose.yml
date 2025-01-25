@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  gis-mock-api:
+    build: .
+    container_name: gis-mock-api
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Xmx512m
