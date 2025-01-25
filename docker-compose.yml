@@ -4,7 +4,9 @@ services:
   gis-mock-api:
     build: .
     container_name: gis-mock-api
-    ports:
-      - "8080:8080"
+    env_file:
+      - .env
     environment:
       - JAVA_OPTS=-Xmx512m
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"

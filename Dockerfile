@@ -8,6 +8,9 @@ WORKDIR /app
 COPY pom.xml ./
 COPY src ./src
 
+# Copy the .env file
+COPY .env .
+
 # Package the application (build the JAR file)
 RUN mvn clean package -DskipTests
 
@@ -20,8 +23,8 @@ WORKDIR /app
 # Copy the jar file from the build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose the application port
-EXPOSE 8080
+## Expose the application port
+#EXPOSE 8080
 
 # Run the jar file
 ENTRYPOINT ["java", "-jar", "app.jar"]
