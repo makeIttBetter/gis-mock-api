@@ -23,6 +23,9 @@ WORKDIR /app
 # Copy the jar file from the build stage
 COPY --from=build /app/target/*.jar app.jar
 
+# **Copy the keystore.jks file into the runtime image**
+COPY . .
+
 ## Expose the application port
 #EXPOSE 8080
 
