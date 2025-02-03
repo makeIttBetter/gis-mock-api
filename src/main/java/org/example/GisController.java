@@ -20,7 +20,7 @@ public class GisController {
 
         List<Map<String, Object>> features = List.of(
                 createFeature(-111.6706, 40.2969), // Example point in Orem, Utah
-                createFeature(-111.685, 40.3047),
+                // createFeature(-111.685, 40.3047),
                 createFeature(-111.66, 40.3124)
         );
 
