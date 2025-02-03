@@ -1,5 +1,6 @@
-package org.example;
+package com.example.realestate.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,12 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/gis")
 public class GisController {
 
     @GetMapping("/mock-dots")
     public Map<String, Object> getMockDots() {
+        log.info("GET /api/gis/mock-dots");
         // Mock GeoJSON data
         Map<String, Object> geoJson = new HashMap<>();
         geoJson.put("type", "FeatureCollection");
@@ -29,6 +32,7 @@ public class GisController {
     }
 
     private Map<String, Object> createFeature(double longitude, double latitude) {
+        log.info("Creating feature at {}, {}", longitude, latitude);
         Map<String, Object> feature = new HashMap<>();
         feature.put("type", "Feature");
 
