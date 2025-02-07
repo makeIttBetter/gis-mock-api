@@ -45,35 +45,43 @@ public class GisController {
         return feature;
     }
 
-    // New endpoint that returns a polygon instead of dots
-    @GetMapping("/mock-polygon")
+    // New endpoint that returns a polygon as a FeatureCollection
+    @GetMapping(value = "/mock-polygon", produces = "application/geo+json")
     public Map<String, Object> getMockPolygon() {
-        Map<String, Object> geoJson = new HashMap<>();
-        // For a single feature, you can return a Feature object directly
-        geoJson.put("type", "Feature");
+        Map<String, Object> featureCollection = new HashMap<>();
+        featureCollection.put("type", "FeatureCollection");
+        // Create a list with a single polygon feature
+        List<Map<String, Object>> features = List.of(createPolygonFeature());
+        featureCollection.put("features", features);
+        return featureCollection;
+    }
 
-        // Define a polygon geometry (a rectangle in this example)
+    // Helper method to create a polygon feature
+    private Map<String, Object> createPolygonFeature() {
+        Map<String, Object> feature = new HashMap<>();
+        feature.put("type", "Feature");
+
+        // Define the polygon geometry as a rectangle (with first and last coordinate the same)
         Map<String, Object> geometry = new HashMap<>();
         geometry.put("type", "Polygon");
-        // A polygon's coordinates must be an array of linear rings. Here we define one ring.
         List<List<List<Double>>> coordinates = List.of(
                 List.of(
                         List.of(-111.70, 40.30),
                         List.of(-111.68, 40.30),
                         List.of(-111.68, 40.32),
                         List.of(-111.70, 40.32),
-                        List.of(-111.70, 40.30)  // Closing the ring (first and last points are the same)
+                        List.of(-111.70, 40.30)  // Closes the polygon
                 )
         );
         geometry.put("coordinates", coordinates);
-        geoJson.put("geometry", geometry);
+        feature.put("geometry", geometry);
 
-        // Add some properties for display purposes
+        // Add any properties you need
         Map<String, Object> properties = new HashMap<>();
         properties.put("name", "Mock Polygon");
-        geoJson.put("properties", properties);
+        feature.put("properties", properties);
 
-        return geoJson;
+        return feature;
     }
 }
 
