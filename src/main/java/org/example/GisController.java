@@ -14,7 +14,7 @@ public class GisController {
 
     private static int idCounter = 1;
 
-    @GetMapping("/mock-dots")
+    @GetMapping(value = "/mock-dots", produces = "application/geo+json")
     public Map<String, Object> getMockDots() {
         // (Existing endpoint that returns point features)
         Map<String, Object> geoJson = new HashMap<>();
