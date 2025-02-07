@@ -12,6 +12,8 @@ import java.util.Map;
 @RequestMapping("/api/gis")
 public class GisController {
 
+    private static int idCounter = 1;
+
     @GetMapping("/mock-dots")
     public Map<String, Object> getMockDots() {
         // (Existing endpoint that returns point features)
@@ -35,15 +37,16 @@ public class GisController {
         Map<String, Object> geometry = new HashMap<>();
         geometry.put("type", "Point");
         geometry.put("coordinates", List.of(longitude, latitude));
-
         feature.put("geometry", geometry);
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("name", "Mock Point");
-
+        // Add a unique identifier
+        properties.put("OBJECTID", idCounter++);
         feature.put("properties", properties);
         return feature;
     }
+
 
     // New endpoint that returns a polygon as a FeatureCollection
     @GetMapping(value = "/mock-polygon", produces = "application/geo+json")
